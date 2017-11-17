@@ -54,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void doRegis() {
         if (isValid()) {
-            String url = Config.ServerURL + "user";
+            String url = Config.ServerURL + "register";
 
             btRegis.setText("Registering, please wait ..");
             btRegis.setEnabled(false);

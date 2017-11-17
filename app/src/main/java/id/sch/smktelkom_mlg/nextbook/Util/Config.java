@@ -5,5 +5,5 @@ package id.sch.smktelkom_mlg.nextbook.Util;
  */
 
 public class Config {
-    public static String ServerURL = "http://192.168.43.216/nextbook-api/";
+    public static String ServerURL = "http://10.101.0.186/nextbook-api/";
 }
