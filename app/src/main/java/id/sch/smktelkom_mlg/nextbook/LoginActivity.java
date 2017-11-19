@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
 
             btLogin.setText("Please wait ..");
             btLogin.setEnabled(false);
-
+            Log.d("Volley", "Sending request to : " + url);
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>() {
                         @Override
@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                             btLogin.setEnabled(true);
                             try {
                                 JSONObject res = new JSONObject(response);
-                                Log.d("Nganu", response);
+                                Log.d("Volley", "Response : " + response);
                                 String code = res.getString("code");
                                 String message = res.getString("message");
                                 Integer codes = Integer.parseInt(code);
@@ -125,10 +125,9 @@ public class LoginActivity extends AppCompatActivity {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            // error
                             btLogin.setText("Login");
                             btLogin.setEnabled(true);
-                            //Log.d("Error.Response", error.toString());
+                            Log.d("Volley", "Error : " + error.getMessage());
                             Snackbar snackbar = Snackbar.make(ll, "An error occurred, try again later", Snackbar.LENGTH_LONG);
                             snackbar.show();
                         }

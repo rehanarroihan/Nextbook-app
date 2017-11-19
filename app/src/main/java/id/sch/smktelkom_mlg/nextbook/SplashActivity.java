@@ -36,14 +36,15 @@ public class SplashActivity extends AppCompatActivity {
                 .setUseDefaultSharedPreference(true)
                 .build();
 
-        String url = Config.ServerURL + "login";
+        final String url = Config.ServerURL + "login";
+        Log.d("Volley", "Sending request to : " + url);
         StringRequest postRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
                             JSONObject res = new JSONObject(response);
-                            Log.d("Nganu", response);
+                            Log.d("Volley", "Response : " + response);
                             String code = res.getString("code");
                             String message = res.getString("message");
                             Integer codes = Integer.parseInt(code);
@@ -66,6 +67,7 @@ public class SplashActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.d("Volley", "Error : " + error.getMessage());
                         status.setText("Connection error, please try again later");
                     }
                 }

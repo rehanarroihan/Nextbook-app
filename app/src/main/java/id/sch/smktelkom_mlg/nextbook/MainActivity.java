@@ -4,9 +4,7 @@ import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,6 +19,8 @@ import android.widget.TextView;
 
 import com.pixplicity.easyprefs.library.Prefs;
 
+import id.sch.smktelkom_mlg.nextbook.Fragment.CardFragment;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     TextView tvUsernameDrawer, tvEmailDrawer;
@@ -32,15 +32,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         new Prefs.Builder()
                 .setContext(this)
@@ -114,7 +105,8 @@ public class MainActivity extends AppCompatActivity
             //fragment = new HomeFragment();
             //setTitle(getResources().getString(R.string.home));
         } else if (id == R.id.nav_card) {
-
+            fragment = new CardFragment();
+            setTitle("Card");
         } else if (id == R.id.nav_profile) {
 
         } else if (id == R.id.nav_setting) {
@@ -122,7 +114,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_about) {
 
         } else if (id == R.id.nav_logout) {
-            //fragment = new HomeFragment();
+            fragment = new CardFragment();
             navigationView.setCheckedItem(R.id.nav_class);
 
             new AlertDialog.Builder(this)
@@ -142,7 +134,7 @@ public class MainActivity extends AppCompatActivity
                     }).setNegativeButton("Cancel", null).show();
         }
 
-        //getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commitNow();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commitNow();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }

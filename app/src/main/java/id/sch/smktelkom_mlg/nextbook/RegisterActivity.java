@@ -55,10 +55,9 @@ public class RegisterActivity extends AppCompatActivity {
     private void doRegis() {
         if (isValid()) {
             String url = Config.ServerURL + "register";
-
             btRegis.setText("Registering, please wait ..");
             btRegis.setEnabled(false);
-
+            Log.d("Volley", "Sending request to : " + url);
             StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                     new Response.Listener<String>() {
                         @Override
@@ -68,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
                             btRegis.setEnabled(true);
                             try {
                                 JSONObject res = new JSONObject(response);
-                                Log.d("Nganu", response);
+                                Log.d("Volley", "Response : " + response);
                                 String code = res.getString("code");
                                 String message = res.getString("message");
                                 Integer codes = Integer.parseInt(code);
@@ -94,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
                             // error
                             btRegis.setText("Register");
                             btRegis.setEnabled(true);
-                            //Log.d("Error.Response", error.toString());
+                            Log.d("Volley", "Error : " + error.getMessage());
                             Snackbar snackbar = Snackbar.make(ll, "An error occurred, try again later", Snackbar.LENGTH_LONG);
                             snackbar.show();
                         }
