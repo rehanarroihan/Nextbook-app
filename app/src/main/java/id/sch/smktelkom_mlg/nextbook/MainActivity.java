@@ -1,20 +1,30 @@
 package id.sch.smktelkom_mlg.nextbook;
 
+import android.content.ContextWrapper;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+
+import com.pixplicity.easyprefs.library.Prefs;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    TextView tvUsernameDrawer, tvEmailDrawer;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +42,30 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        new Prefs.Builder()
+                .setContext(this)
+                .setMode(ContextWrapper.MODE_PRIVATE)
+                .setPrefsName(getPackageName())
+                .setUseDefaultSharedPreference(true)
+                .build();
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+        drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        changePage(R.id.nav_card);
+        navigationView.setCheckedItem(R.id.nav_card);
+
+        View hView = navigationView.getHeaderView(0); //Mengambil view dari drawer
+        tvUsernameDrawer = hView.findViewById(R.id.textViewUsernameDrawer);
+        tvUsernameDrawer.setText(Prefs.getString("username", null));
+        tvEmailDrawer = hView.findViewById(R.id.textViewEmailDrawer);
+        tvEmailDrawer.setText(Prefs.getString("email", null));
     }
 
     @Override
@@ -77,25 +103,47 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
+        changePage(id);
+        return true;
+    }
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+    private void changePage(int id) {
+        Fragment fragment = null;
+        if (id == R.id.nav_class) {
+            //fragment = new HomeFragment();
+            //setTitle(getResources().getString(R.string.home));
+        } else if (id == R.id.nav_card) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_profile) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_setting) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_about) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_logout) {
+            //fragment = new HomeFragment();
+            navigationView.setCheckedItem(R.id.nav_class);
 
+            new AlertDialog.Builder(this)
+                    .setTitle("Logout")
+                    .setMessage("Are you sure want to logout ?")
+                    .setCancelable(true)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Prefs.putString("username", null);
+                            Prefs.putString("email", null);
+
+                            Intent b = new Intent(MainActivity.this, SplashActivity.class);
+                            startActivity(b);
+                            finish();
+                        }
+                    }).setNegativeButton("Cancel", null).show();
         }
 
+        //getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commitNow();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 }
