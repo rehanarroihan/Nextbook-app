@@ -20,9 +20,9 @@ import android.widget.TextView;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import id.sch.smktelkom_mlg.nextbook.Fragment.CardFragment;
+import id.sch.smktelkom_mlg.nextbook.Fragment.ClassFragment;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     TextView tvUsernameDrawer, tvEmailDrawer;
     private NavigationView navigationView;
 
@@ -49,12 +49,12 @@ public class MainActivity extends AppCompatActivity
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        changePage(R.id.nav_card);
-        navigationView.setCheckedItem(R.id.nav_card);
+        changePage(R.id.nav_class);
+        navigationView.setCheckedItem(R.id.nav_class);
 
         View hView = navigationView.getHeaderView(0); //Mengambil view dari drawer
         tvUsernameDrawer = hView.findViewById(R.id.textViewUsernameDrawer);
-        tvUsernameDrawer.setText(Prefs.getString("username", null));
+        tvUsernameDrawer.setText(Prefs.getString("fullname", null));
         tvEmailDrawer = hView.findViewById(R.id.textViewEmailDrawer);
         tvEmailDrawer.setText(Prefs.getString("email", null));
     }
@@ -102,8 +102,11 @@ public class MainActivity extends AppCompatActivity
     private void changePage(int id) {
         Fragment fragment = null;
         if (id == R.id.nav_class) {
-            //fragment = new HomeFragment();
-            //setTitle(getResources().getString(R.string.home));
+            fragment = new ClassFragment();
+            if (Prefs.getString("classid", null) != null)
+                setTitle("");
+            else
+                setTitle("Class");
         } else if (id == R.id.nav_card) {
             fragment = new CardFragment();
             setTitle("Card");
@@ -124,8 +127,7 @@ public class MainActivity extends AppCompatActivity
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Prefs.putString("username", null);
-                            Prefs.putString("email", null);
+                            Prefs.clear();
 
                             Intent b = new Intent(MainActivity.this, SplashActivity.class);
                             startActivity(b);

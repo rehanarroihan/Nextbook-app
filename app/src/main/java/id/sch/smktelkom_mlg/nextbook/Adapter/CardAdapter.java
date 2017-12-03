@@ -1,6 +1,8 @@
 package id.sch.smktelkom_mlg.nextbook.Adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,8 +37,21 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Card card = cardList.get(position);
+        Integer colour = R.color.blue_grey;
+        if (card.getColor() == "green") {
+            colour = R.color.green;
+        } else if (card.getColor() == "blue") {
+            colour = R.color.blue;
+        } else if (card.getColor() == "purple") {
+            colour = R.color.purple;
+        } else if (card.getColor() == "red") {
+            colour = R.color.red;
+        } else if (card.getColor() == "blue-grey") {
+            colour = R.color.blue_grey;
+        }
         holder.tvTitle.setText(card.getCard_name());
         holder.tvDesc.setText(card.getCard_desc());
+        holder.cvParent.setCardBackgroundColor(ContextCompat.getColor(context, colour));
     }
 
     @Override
@@ -49,11 +64,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle, tvDesc;
+        CardView cvParent;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.card_title);
             tvDesc = itemView.findViewById(R.id.card_desc);
+            cvParent = itemView.findViewById(R.id.card_parent);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
