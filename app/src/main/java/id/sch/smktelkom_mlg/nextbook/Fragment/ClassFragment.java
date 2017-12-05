@@ -2,6 +2,7 @@ package id.sch.smktelkom_mlg.nextbook.Fragment;
 
 
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -19,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.pixplicity.easyprefs.library.Prefs;
 
@@ -26,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import id.sch.smktelkom_mlg.nextbook.R;
+import id.sch.smktelkom_mlg.nextbook.ScannerActivity;
 import id.sch.smktelkom_mlg.nextbook.Util.AppController;
 import id.sch.smktelkom_mlg.nextbook.Util.Config;
 
@@ -67,6 +70,14 @@ public class ClassFragment extends Fragment {
 
         fab = getView().findViewById(R.id.menu);
         ivNoClass = getView().findViewById(R.id.imageViewNoClass);
+        FloatingActionButton fabJoin = getView().findViewById(R.id.menu_item1);
+        fabJoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ScannerActivity.class);
+                startActivity(intent);
+            }
+        });
 
         tabLayout = getView().findViewById(R.id.tabs);
         viewPager = getView().findViewById(R.id.viewpager);

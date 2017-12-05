@@ -1,5 +1,6 @@
 package id.sch.smktelkom_mlg.nextbook;
 
+import android.app.Activity;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,6 +24,7 @@ import id.sch.smktelkom_mlg.nextbook.Fragment.CardFragment;
 import id.sch.smktelkom_mlg.nextbook.Fragment.ClassFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    public static Activity MA;
     TextView tvUsernameDrawer, tvEmailDrawer;
     private NavigationView navigationView;
 
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        MA = this;
 
         new Prefs.Builder()
                 .setContext(this)
