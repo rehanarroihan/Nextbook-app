@@ -88,6 +88,7 @@ public class ClassFragment extends Fragment {
                 tabLayout.setupWithViewPager(viewPager);
             }
         });
+        getActivity().setTitle("Loading...");
         isHaveClass();
     }
 
@@ -105,8 +106,10 @@ public class ClassFragment extends Fragment {
                             Integer codes = Integer.parseInt(code);
                             if (codes == 1) {
                                 Prefs.putString("classid", res.getString("classid"));
+                            } else {
+                                getActivity().setTitle("Class");
                             }
-                            doSomethingBitch(codes);
+                            doSomething(codes);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -121,7 +124,7 @@ public class ClassFragment extends Fragment {
         AppController.getInstance().addToRequestQueue(reqs);
     }
 
-    private void doSomethingBitch(Integer codes) {
+    private void doSomething(Integer codes) {
         Log.d("Code : ", codes.toString());
         if (codes == 1) {
             Log.d("ClassFragment : ", "Have class");
@@ -168,27 +171,34 @@ public class ClassFragment extends Fragment {
 
         @Override
         public Fragment getItem(int position) {
-            if (position == 1)
+            if (position == 0)
                 return new ClassStreamFragment();
+            if (position == 1)
+                return new ClassScheduleFragment();
+            if (position == 2)
+                return new ClassSettingFragment();
+            if (position == 3)
+                return new ClassInfoFragment();
             else
                 return new ClassStreamFragment();
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return 4;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Steam";
+                    return "Stream";
                 case 1:
                     return "Schedule";
                 case 2:
                     return "Member";
+                case 3:
+                    return "Class Info";
             }
             return null;
         }

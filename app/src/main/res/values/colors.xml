@@ -9,4 +9,6 @@
     <color name="purple">#AB47BC</color>
     <color name="red">#EF5350</color>
     <color name="blue_grey">#78909C</color>
+
+    <color name="colorLine">#dad6d6</color>
 </resources>

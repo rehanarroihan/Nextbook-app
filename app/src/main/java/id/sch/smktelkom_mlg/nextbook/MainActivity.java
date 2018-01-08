@@ -13,15 +13,26 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
 import com.pixplicity.easyprefs.library.Prefs;
 
-import id.sch.smktelkom_mlg.nextbook.Fragment.CardFragment;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import id.sch.smktelkom_mlg.nextbook.Fragment.ClassFragment;
+import id.sch.smktelkom_mlg.nextbook.Fragment.ProfileFragment;
+import id.sch.smktelkom_mlg.nextbook.Util.AppController;
+import id.sch.smktelkom_mlg.nextbook.Util.Config;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static Activity MA;
@@ -54,12 +65,48 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         changePage(R.id.nav_class);
         navigationView.setCheckedItem(R.id.nav_class);
+        setDrawerInfo();
+    }
 
+    private void setDrawerInfo() {
         View hView = navigationView.getHeaderView(0); //Mengambil view dari drawer
         tvUsernameDrawer = hView.findViewById(R.id.textViewUsernameDrawer);
         tvUsernameDrawer.setText(Prefs.getString("fullname", null));
         tvEmailDrawer = hView.findViewById(R.id.textViewEmailDrawer);
         tvEmailDrawer.setText(Prefs.getString("email", null));
+        final ImageView ivPP = hView.findViewById(R.id.imageViewHehe);
+
+        Log.d("Sector", getClass().getClass().toString());
+        String url = Config.ServerURL + "login/getuserpic?uid=" + Prefs.getString("uid", null);
+        Log.d("Volley", "Sending request to : " + url);
+        StringRequest postRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject res = new JSONObject(response);
+                            Log.d("Volley", "Response : " + response);
+                            String prov = res.getString("prov");
+                            if (prov.equals("email"))
+                                Glide.with(MainActivity.this)
+                                        .load(Config.ImageURL + "2.0/img/user/" + res.getString("pict"))
+                                        .into(ivPP);
+                            else
+                                Glide.with(MainActivity.this)
+                                        .load(res.getString("picts"))
+                                        .into(ivPP);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }
+        );
+        AppController.getInstance().addToRequestQueue(postRequest);
     }
 
     @Override
@@ -72,27 +119,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -110,19 +150,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 setTitle("");
             else
                 setTitle("Class");
-        } else if (id == R.id.nav_card) {
-            fragment = new CardFragment();
-            setTitle("Card");
+//        } else if (id == R.id.nav_card) {
+//            fragment = new CardFragment();
+//            setTitle("Card");
         } else if (id == R.id.nav_profile) {
-
-        } else if (id == R.id.nav_setting) {
-
-        } else if (id == R.id.nav_about) {
+            fragment = new ProfileFragment();
+            setTitle("Edit Profile");
+//        } else if (id == R.id.nav_setting) {
+//
+//        } else if (id == R.id.nav_about) {
 
         } else if (id == R.id.nav_logout) {
-            fragment = new CardFragment();
+            fragment = new ClassFragment();
             navigationView.setCheckedItem(R.id.nav_class);
-
             new AlertDialog.Builder(this)
                     .setTitle("Logout")
                     .setMessage("Are you sure want to logout ?")

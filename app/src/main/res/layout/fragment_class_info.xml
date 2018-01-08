@@ -1,0 +1,166 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context="id.sch.smktelkom_mlg.nextbook.Fragment.ClassInfoFragment">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/white"
+            app:cardCornerRadius="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageViewGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/group" />
+
+                <TextView
+                    android:id="@+id/textViewGroupName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="9dp"
+                    android:text="XIIRPL4"
+                    android:textAlignment="center"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewGroupDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="-10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="Lorem ipsum iki oonto Lorem ipsum iki oonto Lorem ipsum iki oonto"
+                    android:textAlignment="center"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/white"
+            app:cardCornerRadius="5dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imageViewQR"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:src="@color/blue" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/imageViewQR"
+                    android:padding="9dp"
+                    android:text="Scan qr code / copy class code to join"
+                    android:textAlignment="center"
+                    android:textSize="11sp"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:id="@+id/textViewClassCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/textView4"
+                    android:layout_toEndOf="@+id/imageViewQR"
+                    android:text="OOOOOXX"
+                    android:textAlignment="center"
+                    android:textSize="35dp" />
+
+                <TextView
+                    android:id="@+id/buttonCopyCode"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@+id/textViewClassCode"
+                    android:layout_toEndOf="@+id/imageViewQR"
+                    android:background="@android:color/white"
+                    android:padding="6dp"
+                    android:text="COPY CODE"
+                    android:textAlignment="center"
+                    android:textSize="11sp" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/white"
+            app:cardCornerRadius="5dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textViewMember"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="9dp"
+                    android:paddingTop="5dp"
+                    android:text="3 Member"
+                    android:textAlignment="textEnd" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerViewMember"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textViewMember"
+                    android:layout_marginTop="2dp" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <Button
+            android:id="@+id/buttonUnenroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/btbg"
+            android:text="Unenroll Class"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+</ScrollView>

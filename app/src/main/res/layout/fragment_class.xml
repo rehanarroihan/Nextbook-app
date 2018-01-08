@@ -86,9 +86,9 @@
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimary"
         android:visibility="gone"
-        app:tabGravity="fill"
+        app:tabGravity="center"
         app:tabIndicatorColor="#FFFFFF"
-        app:tabMode="fixed"
+        app:tabMode="scrollable"
         app:tabSelectedTextColor="#FFFFFF"
         app:tabTextColor="#ffffff">
 

@@ -1,6 +1,5 @@
 package id.sch.smktelkom_mlg.nextbook;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,8 +15,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
+import com.google.zxing.Result;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import org.json.JSONException;
@@ -25,10 +23,12 @@ import org.json.JSONObject;
 
 import id.sch.smktelkom_mlg.nextbook.Util.AppController;
 import id.sch.smktelkom_mlg.nextbook.Util.Config;
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class ScannerActivity extends AppCompatActivity {
-    private Button btJoin, btScan;
+public class ScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+    private Button btJoin;
     private EditText etClassCode;
+    private ZXingScannerView zXingScannerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,20 +50,24 @@ public class ScannerActivity extends AppCompatActivity {
                 }
             }
         });
-        btScan = findViewById(R.id.buttonScan);
-        final Activity activity = this;
-        btScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                IntentIntegrator integrator = new IntentIntegrator(activity);
-                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-                integrator.setPrompt("Scan");
-                integrator.setCameraId(0);
-                integrator.setBeepEnabled(false);
-                integrator.setBarcodeImageEnabled(false);
-                integrator.initiateScan();
-            }
-        });
+    }
+
+    public void scan(View view) {
+        zXingScannerView = new ZXingScannerView(getApplicationContext());
+        setContentView(zXingScannerView);
+        zXingScannerView.setResultHandler(this);
+        zXingScannerView.startCamera();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void handleResult(Result result) {
+        etClassCode.setText(result.getText());
+        Log.d("Scanner", result.getText());
     }
 
     private void checkCode(String classcode) {
@@ -118,17 +122,7 @@ public class ScannerActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if (result != null) {
-            if (result.getContents() == null) {
-                Toast.makeText(this, "You cancelled the scanning", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
-                etClassCode.setText(result.getContents());
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
+
     }
 
     @Override
