@@ -16,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.pixplicity.easyprefs.library.Prefs;
 
 import org.json.JSONArray;
@@ -33,18 +34,8 @@ import id.sch.smktelkom_mlg.nextbook.R;
 import id.sch.smktelkom_mlg.nextbook.Util.AppController;
 import id.sch.smktelkom_mlg.nextbook.Util.Config;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-
 public class ClassScheduleFragment extends Fragment {
-    ArrayList<Schedule> seninList = new ArrayList<>();
-    ArrayList<Schedule> selasaList = new ArrayList<>();
-    ArrayList<Schedule> rabuList = new ArrayList<>();
-    ArrayList<Schedule> kamisList = new ArrayList<>();
-    ArrayList<Schedule> jumatList = new ArrayList<>();
-    ArrayList<Schedule> sabtuList = new ArrayList<>();
-    ArrayList<Schedule> mingguList = new ArrayList<>();
+    ArrayList<Schedule> mList = new ArrayList<>();
 
     Unbinder unbinder;
     @BindView(R.id.recyclerViewSenin)
@@ -66,14 +57,12 @@ public class ClassScheduleFragment extends Fragment {
     LinearLayout llSc;
     @BindView(R.id.linearLayoutLoadingSch)
     LinearLayout llLoading;
-
     @BindView(R.id.indeterminateBar)
     ProgressBar pb;
 
     ScheduleAdapter mAdapter;
 
     public ClassScheduleFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -89,43 +78,70 @@ public class ClassScheduleFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         String[] day = {"senin", "selasa", "rabu", "kamis", "jumat", "sabtu", "minggu"};
         RecyclerView[] rv = {rvSenin, rvSelasa, rvRabu, rvKamis, rvJumat, rvSabtu, rvMinggu};
-        ArrayList[] arday = {seninList, selasaList, rabuList, kamisList, jumatList, sabtuList, mingguList};
 
-//        for (int i = 0; i < day.length; i++) {
-//            String dayname = day[i];
-//            RecyclerView rvnow = rv[i];
-//            ArrayList arnow = arday[i];
-//            loadSchedule(dayname, arnow, rvnow);
-//        }
-
-        loadSchedule();
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        rvSenin.setLayoutManager(layoutManager);
-        mAdapter = new ScheduleAdapter(getContext(), seninList);
-        rvSenin.setAdapter(mAdapter);
+        for (int i = 0; i < day.length; i++) {
+            String dayname = day[i];
+            RecyclerView rvnow = rv[i];
+            if (haveschedule(dayname)) {
+                loadSchedule(dayname);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                rvnow.setLayoutManager(layoutManager);
+                mAdapter = new ScheduleAdapter(getContext(), mList);
+                rvnow.setAdapter(mAdapter);
+            } else {
+                Log.d("Volley", dayname + " dont have schedule");
+            }
+        }
     }
 
-    private void loadSchedule() {
-        //Load member list
-        String urls = Config.ServerURL + "aclass/schedule?cid="
-                + Prefs.getString("classid", null) + "&day=senin";
+    private boolean haveschedule(String day) {
+        String url = Config.ServerURL + "aclass/schedulecount?cid="
+                + Prefs.getString("classid", null) + "&day=" + day;
+        Log.d("Volley", "Sending request to : " + url);
+        final boolean[] ehe = {false};
+        StringRequest reqss = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject res = new JSONObject(response);
+                            String code = res.getString("code");
+                            Integer codes = Integer.parseInt(code);
+                            ehe[0] = codes != 1;
+                            Log.d("Volley", "Response : " + response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError e) {
+                e.printStackTrace();
+            }
+        });
+        AppController.getInstance().addToRequestQueue(reqss);
+        return ehe[0];
+    }
+
+    private void loadSchedule(String day) {
+        mList.clear();
+        String urls = Config.ServerURL + "aclass/schedule?cid=" + Prefs.getString("classid", null) + "&day=" + day;
         Log.d("Volley", "Sending request to : " + urls);
         JsonArrayRequest reqData = new JsonArrayRequest(Request.Method.GET, urls, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.d("Volley", "Response : " + response);
-                        for (int p = 0; p < response.length(); p++) {
+                        for (int i = 0; i < response.length(); i++) {
                             try {
-                                JSONObject data = response.getJSONObject(p);
-                                Log.d("Code", data.getString("code"));
+                                JSONObject data = response.getJSONObject(i);
                                 Schedule schedule = new Schedule();
+                                schedule.setScheduleid(data.getString("scheduleid"));
                                 schedule.setStart(data.getString("start"));
                                 schedule.setEnd(data.getString("end"));
                                 schedule.setLesson(data.getString("lesson"));
                                 schedule.setTeacher(data.getString("teacher"));
-                                seninList.add(schedule);
+                                mList.add(schedule);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

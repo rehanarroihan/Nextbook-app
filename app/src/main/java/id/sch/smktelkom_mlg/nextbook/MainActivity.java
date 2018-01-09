@@ -150,16 +150,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 setTitle("");
             else
                 setTitle("Class");
-//        } else if (id == R.id.nav_card) {
-//            fragment = new CardFragment();
-//            setTitle("Card");
         } else if (id == R.id.nav_profile) {
             fragment = new ProfileFragment();
             setTitle("Edit Profile");
-//        } else if (id == R.id.nav_setting) {
-//
-//        } else if (id == R.id.nav_about) {
-
         } else if (id == R.id.nav_logout) {
             fragment = new ClassFragment();
             navigationView.setCheckedItem(R.id.nav_class);

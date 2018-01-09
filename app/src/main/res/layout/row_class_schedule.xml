@@ -41,9 +41,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="7dp"
-            app:line="@color/blue"
+            app:line="@color/com_facebook_blue"
             app:lineSize="2dp"
-            app:markerSize="14dp" />
+            app:marker="@drawable/roundmarker"
+            app:markerSize="13dp" />
 
         <LinearLayout
             android:layout_width="match_parent"

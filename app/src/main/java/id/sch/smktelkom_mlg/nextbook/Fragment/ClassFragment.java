@@ -119,6 +119,9 @@ public class ClassFragment extends Fragment {
             public void onErrorResponse(VolleyError e) {
                 Log.d("Volley", "Error : " + e.toString());
                 e.printStackTrace();
+                Config ehe = new Config();
+                ehe.timeout(getActivity());
+                getActivity().finish();
             }
         });
         AppController.getInstance().addToRequestQueue(reqs);
@@ -176,8 +179,6 @@ public class ClassFragment extends Fragment {
             if (position == 1)
                 return new ClassScheduleFragment();
             if (position == 2)
-                return new ClassSettingFragment();
-            if (position == 3)
                 return new ClassInfoFragment();
             else
                 return new ClassStreamFragment();
@@ -185,7 +186,7 @@ public class ClassFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return 4;
+            return 3;
         }
 
         @Override
@@ -196,8 +197,6 @@ public class ClassFragment extends Fragment {
                 case 1:
                     return "Schedule";
                 case 2:
-                    return "Member";
-                case 3:
                     return "Class Info";
             }
             return null;

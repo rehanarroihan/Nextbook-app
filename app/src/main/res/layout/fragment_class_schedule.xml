@@ -2,7 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    tools:context="id.sch.smktelkom_mlg.nextbook.Fragment.ClassScheduleFragment">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -27,18 +28,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="16dp"
             android:visibility="visible">
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:orientation="vertical"
-                app:cardCornerRadius="5dp"
-                tools:context="id.sch.smktelkom_mlg.nextbook.Fragment.ClassScheduleFragment">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -61,6 +57,7 @@
                         android:layout_height="wrap_content" />
 
                 </LinearLayout>
+
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
@@ -68,8 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:orientation="vertical"
-                app:cardCornerRadius="5dp"
-                tools:context="id.sch.smktelkom_mlg.nextbook.Fragment.ClassScheduleFragment">
+                app:cardCornerRadius="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -99,8 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:orientation="vertical"
-                app:cardCornerRadius="5dp"
-                tools:context="id.sch.smktelkom_mlg.nextbook.Fragment.ClassScheduleFragment">
+                app:cardCornerRadius="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -130,8 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:orientation="vertical"
-                app:cardCornerRadius="5dp"
-                tools:context="id.sch.smktelkom_mlg.nextbook.Fragment.ClassScheduleFragment">
+                app:cardCornerRadius="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -161,8 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:orientation="vertical"
-                app:cardCornerRadius="5dp"
-                tools:context="id.sch.smktelkom_mlg.nextbook.Fragment.ClassScheduleFragment">
+                app:cardCornerRadius="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -192,8 +185,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:orientation="vertical"
-                app:cardCornerRadius="5dp"
-                tools:context="id.sch.smktelkom_mlg.nextbook.Fragment.ClassScheduleFragment">
+                app:cardCornerRadius="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -223,8 +215,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:orientation="vertical"
-                app:cardCornerRadius="5dp"
-                tools:context="id.sch.smktelkom_mlg.nextbook.Fragment.ClassScheduleFragment">
+                app:cardCornerRadius="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
