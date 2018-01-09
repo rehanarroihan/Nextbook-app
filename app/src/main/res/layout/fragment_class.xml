@@ -86,7 +86,6 @@
         android:layout_alignParentTop="true"
         android:background="#FFFFFF"
         android:visibility="gone"
-        app:tabGravity="center"
         app:tabIndicatorColor="@color/com_facebook_blue"
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/com_facebook_blue"
