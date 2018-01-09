@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="9dp"
-                    android:text="XIIRPL4"
+                    android:text="Loading..."
                     android:textAlignment="center"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -49,7 +49,7 @@
                     android:layout_marginTop="-10dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:text="Lorem ipsum iki oonto Lorem ipsum iki oonto Lorem ipsum iki oonto"
+                    android:text="Loading..."
                     android:textAlignment="center"
                     android:textSize="12dp" />
 
@@ -96,7 +96,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_below="@+id/textView4"
                     android:layout_toEndOf="@+id/imageViewQR"
-                    android:text="OOOOOXX"
+                    android:text="Loading..."
                     android:textAlignment="center"
                     android:textSize="35dp" />
 
@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="9dp"
                     android:paddingTop="5dp"
-                    android:text="3 Member"
+                    android:text="Loading..."
                     android:textAlignment="textEnd" />
 
                 <android.support.v7.widget.RecyclerView

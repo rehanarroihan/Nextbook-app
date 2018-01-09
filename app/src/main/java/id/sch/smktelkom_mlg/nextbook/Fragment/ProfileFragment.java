@@ -70,8 +70,12 @@ public class ProfileFragment extends Fragment {
                             etUsername.setText(res.getString("username"));
                             etEmail.setText(res.getString("email"));
                             String provider = res.getString("prov");
-                            String imgurl = Config.ImageURL + "2.0/img/user/" + res.getString("pict");
-                            Glide.with(getActivity()).load(imgurl).into(ivProfile);
+                            if (provider.equals("email")) {
+                                String imgurl = Config.ImageURL + "2.0/img/user/" + res.getString("pict");
+                                Glide.with(getActivity()).load(imgurl).into(ivProfile);
+                            } else {
+                                Glide.with(getActivity()).load(res.getString("picts")).into(ivProfile);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

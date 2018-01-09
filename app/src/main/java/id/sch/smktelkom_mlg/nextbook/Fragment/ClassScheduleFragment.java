@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -38,10 +38,26 @@ public class ClassScheduleFragment extends Fragment {
     ArrayList<Schedule> mList = new ArrayList<>();
 
     Unbinder unbinder;
+
+    @BindView(R.id.textViewN1)
+    TextView tvN1;
+    @BindView(R.id.textViewN2)
+    TextView tvN2;
+    @BindView(R.id.textViewN3)
+    TextView tvN3;
+    @BindView(R.id.textViewN4)
+    TextView tvN4;
+    @BindView(R.id.textViewN5)
+    TextView tvN5;
+    @BindView(R.id.textViewN6)
+    TextView tvN6;
+    @BindView(R.id.textViewN7)
+    TextView tvN7;
+
     @BindView(R.id.recyclerViewSenin)
     RecyclerView rvSenin;
-    @BindView(R.id.recyclerViewSelasa)
-    RecyclerView rvSelasa;
+    @BindView(R.id.recyclerViewSelas)
+    RecyclerView rvSelas;
     @BindView(R.id.recyclerViewRabu)
     RecyclerView rvRabu;
     @BindView(R.id.recyclerViewKamis)
@@ -57,10 +73,13 @@ public class ClassScheduleFragment extends Fragment {
     LinearLayout llSc;
     @BindView(R.id.linearLayoutLoadingSch)
     LinearLayout llLoading;
-    @BindView(R.id.indeterminateBar)
-    ProgressBar pb;
 
     ScheduleAdapter mAdapter;
+
+    private Integer prm = 0; //max 7
+    private String[] day;
+    private TextView[] tvn;
+    private RecyclerView[] rv;
 
     public ClassScheduleFragment() {
     }
@@ -76,16 +95,26 @@ public class ClassScheduleFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        String[] day = {"senin", "selasa", "rabu", "kamis", "jumat", "sabtu", "minggu"};
-        RecyclerView[] rv = {rvSenin, rvSelasa, rvRabu, rvKamis, rvJumat, rvSabtu, rvMinggu};
-        haveschedule("senin");
+        initSchedule();
     }
 
-    private void haveschedule(final String day) {
+    private void initSchedule() {
+        Log.d("Volley", "Param : " + String.valueOf(prm));
+        day = new String[]{"senin", "selasa", "rabu", "kamis", "jumat", "sabtu", "minggu"};
+        tvn = new TextView[]{tvN1, tvN2, tvN3, tvN4, tvN5, tvN6, tvN7};
+        rv = new RecyclerView[]{rvSenin, rvSelas, rvRabu, rvKamis, rvJumat, rvSabtu, rvMinggu};
+        if (prm <= 6) {
+            haveschedule();
+        } else if (prm == 7) {
+            llLoading.setVisibility(View.GONE);
+            llSc.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void haveschedule() {
         String url = Config.ServerURL + "aclass/schedulecount?cid="
-                + Prefs.getString("classid", null) + "&day=" + day;
+                + Prefs.getString("classid", null) + "&day=" + day[prm];
         Log.d("Volley", "Sending request to : " + url);
-        final String[] ehe = {"tidak"};
         StringRequest reqss = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -95,11 +124,17 @@ public class ClassScheduleFragment extends Fragment {
                             String code = res.getString("code");
                             Integer codes = Integer.parseInt(code);
                             if (codes == 2) {
-                                Log.d("Volley", day + " ada jadwal");
-                                loadSchedule(day);
-                                ehe[0] = "ya";
+                                Log.d("Volley", day[prm] + " ada jadwal");
+                                loadSchedule();
                             } else {
-                                Log.d("Volley", day + " tidak ada jadwal");
+                                Log.d("Volley", day[prm] + " tidak ada jadwal");
+                                tvn[prm].setVisibility(View.VISIBLE);
+                                tvn[prm].setText("Saiki preii, saiki preii");
+                                rv[prm].setVisibility(View.GONE);
+                                if (prm != 7) {
+                                    prm++;
+                                    initSchedule();
+                                }
                             }
                             Log.d("Volley", "Response : " + response);
                         } catch (JSONException e) {
@@ -115,9 +150,9 @@ public class ClassScheduleFragment extends Fragment {
         AppController.getInstance().addToRequestQueue(reqss);
     }
 
-    private void loadSchedule(String day) {
+    private void loadSchedule() {
         mList.clear();
-        String urls = Config.ServerURL + "aclass/schedule?cid=" + Prefs.getString("classid", null) + "&day=" + day;
+        String urls = Config.ServerURL + "aclass/schedule?cid=" + Prefs.getString("classid", null) + "&day=" + day[prm];
         Log.d("Volley", "Sending request to : " + urls);
         JsonArrayRequest reqData = new JsonArrayRequest(Request.Method.GET, urls, null,
                 new Response.Listener<JSONArray>() {
@@ -129,20 +164,26 @@ public class ClassScheduleFragment extends Fragment {
                                 JSONObject data = response.getJSONObject(i);
                                 Schedule schedule = new Schedule();
                                 schedule.setScheduleid(data.getString("scheduleid"));
+                                schedule.setClassid(data.getString("classid"));
+                                schedule.setLessonid(data.getString("lessonid"));
+                                schedule.setDay(data.getString("day"));
                                 schedule.setStart(data.getString("start"));
                                 schedule.setEnd(data.getString("end"));
                                 schedule.setLesson(data.getString("lesson"));
                                 schedule.setTeacher(data.getString("teacher"));
                                 mList.add(schedule);
 
-                                LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-                                rvSenin.setLayoutManager(layoutManager);
+                                LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                                rv[prm].setLayoutManager(layoutManager);
+                                rv[prm].setNestedScrollingEnabled(false);
                                 mAdapter = new ScheduleAdapter(getContext(), mList);
-                                rvSenin.setAdapter(mAdapter);
+                                rv[prm].setAdapter(mAdapter);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
+                        prm++;
+                        initSchedule();
                     }
                 },
                 new Response.ErrorListener() {
@@ -159,5 +200,14 @@ public class ClassScheduleFragment extends Fragment {
         super.onDestroyView();
         // unbind the view to free some memory
         unbinder.unbind();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        AppController mQ = new AppController();
+        if (mQ != null) {
+            mQ.cancelAllRequest(getActivity());
+        }
     }
 }

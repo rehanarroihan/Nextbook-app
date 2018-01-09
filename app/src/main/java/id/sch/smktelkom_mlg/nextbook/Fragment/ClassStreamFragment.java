@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -22,6 +24,7 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import de.hdodenhof.circleimageview.CircleImageView;
 import id.sch.smktelkom_mlg.nextbook.R;
 import id.sch.smktelkom_mlg.nextbook.Util.AppController;
 import id.sch.smktelkom_mlg.nextbook.Util.Config;
@@ -35,6 +38,21 @@ public class ClassStreamFragment extends Fragment {
     TextView tvLessonNow;
     @BindView(R.id.textViewNextLesson)
     TextView tvNextLesson;
+
+    //Initialize new post box
+    @BindView(R.id.imageViewNewPostUser)
+    CircleImageView ivNPostUser;
+    @BindView(R.id.textViewNewPostUser)
+    TextView tvNPostUser;
+    @BindView(R.id.textViewNPostLesson)
+    TextView tvNPostLesson;
+    @BindView(R.id.editTextPost)
+    EditText etNPost;
+    @BindView(R.id.buttonPost)
+    Button btPost;
+
+    private String lessonnow = "";
+    private Integer lncode = 0;
 
     public ClassStreamFragment() {
         // Required empty public constructor
@@ -59,9 +77,17 @@ public class ClassStreamFragment extends Fragment {
                         try {
                             JSONObject res = new JSONObject(response);
                             Log.d("Volley", "Response : " + response);
+                            Integer codes = res.getInt("code");
                             tvLessonNow.setText(res.getString("lesson"));
                             String hehe = res.getString("nextlesson") + " " + res.getString("nextlessonTime");
                             tvNextLesson.setText(hehe);
+                            lncode = res.getInt("lessonid");
+                            if (codes == 1) {
+                                lessonnow = res.getString("lesson");
+                                tvNPostLesson.setText(lessonnow);
+                            } else {
+                                tvNPostLesson.setText("Other");
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -74,6 +100,7 @@ public class ClassStreamFragment extends Fragment {
             }
         });
         AppController.getInstance().addToRequestQueue(reqs);
+        tvNPostUser.setText(Prefs.getString("fullname", null));
     }
 
     @Override
@@ -81,5 +108,14 @@ public class ClassStreamFragment extends Fragment {
         super.onDestroyView();
         // unbind the view to free some memory
         unbinder.unbind();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        AppController mQ = new AppController();
+        if (mQ != null) {
+            mQ.cancelAllRequest(getActivity());
+        }
     }
 }

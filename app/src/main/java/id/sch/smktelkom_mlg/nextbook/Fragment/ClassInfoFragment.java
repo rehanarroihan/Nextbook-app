@@ -158,6 +158,7 @@ public class ClassInfoFragment extends Fragment {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvMember.setLayoutManager(layoutManager);
+        rvMember.setNestedScrollingEnabled(false);
         mAdapter = new MemberAdapter(getContext(), mList);
         rvMember.setAdapter(mAdapter);
     }
@@ -236,5 +237,14 @@ public class ClassInfoFragment extends Fragment {
                     }
                 });
         AppController.getInstance().addToRequestQueue(reqData);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        AppController mQ = new AppController();
+        if (mQ != null) {
+            mQ.cancelAllRequest(getActivity());
+        }
     }
 }
