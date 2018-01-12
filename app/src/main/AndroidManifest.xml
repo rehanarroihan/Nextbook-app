@@ -38,7 +38,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ScannerActivity" />
-        <activity android:name=".NoconActivity"></activity>
+        <activity android:name=".NoconActivity" />
+        <activity android:name=".PostvActivity"></activity>
     </application>
 
 </manifest>

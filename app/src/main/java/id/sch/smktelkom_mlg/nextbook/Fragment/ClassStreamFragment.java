@@ -1,30 +1,41 @@
 package id.sch.smktelkom_mlg.nextbook.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.pixplicity.easyprefs.library.Prefs;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.sch.smktelkom_mlg.nextbook.Adapter.PostAdapter;
+import id.sch.smktelkom_mlg.nextbook.Model.Post;
+import id.sch.smktelkom_mlg.nextbook.PostvActivity;
 import id.sch.smktelkom_mlg.nextbook.R;
 import id.sch.smktelkom_mlg.nextbook.Util.AppController;
 import id.sch.smktelkom_mlg.nextbook.Util.Config;
@@ -32,7 +43,10 @@ import id.sch.smktelkom_mlg.nextbook.Util.Config;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ClassStreamFragment extends Fragment {
+public class ClassStreamFragment extends Fragment implements PostAdapter.IPostAdapter {
+    ArrayList<Post> postList = new ArrayList<>();
+    PostAdapter pAdapter;
+
     Unbinder unbinder;
     @BindView(R.id.textViewLessonNow)
     TextView tvLessonNow;
@@ -50,6 +64,13 @@ public class ClassStreamFragment extends Fragment {
     EditText etNPost;
     @BindView(R.id.buttonPost)
     Button btPost;
+
+    @BindView(R.id.linearLayoutLoadingStr)
+    LinearLayout llLoad;
+    @BindView(R.id.linearLayoutPost)
+    LinearLayout llPost;
+    @BindView(R.id.recyclerViewPost)
+    RecyclerView rvPost;
 
     private String lessonnow = "";
     private Integer lncode = 0;
@@ -101,6 +122,55 @@ public class ClassStreamFragment extends Fragment {
         });
         AppController.getInstance().addToRequestQueue(reqs);
         tvNPostUser.setText(Prefs.getString("fullname", null));
+
+        loadUserPost();
+    }
+
+    private void loadUserPost() {
+        String url = Config.ServerURL + "aclass/postlist?cid=" + Prefs.getString("classid", null);
+        Log.d("Volley", "Sending request to : " + url);
+        JsonArrayRequest rez = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d("Volley", "Response : " + response);
+                        for (int i = 0; i < response.length(); i++) {
+                            try {
+                                JSONObject data = response.getJSONObject(i);
+                                Post post = new Post();
+                                post.setPostid(data.getString("postid"));
+                                post.setDspname(data.getString("dspname"));
+                                post.setProv(data.getString("prov"));
+                                post.setPict(data.getString("pict"));
+                                post.setPicts(data.getString("picts"));
+                                post.setLesson(data.getString("lesson"));
+                                post.setCreate(data.getString("creat"));
+                                post.setContent(data.getString("content"));
+                                post.setImg(data.getString("img"));
+                                post.setDoc(data.getString("doc"));
+                                post.setComment(data.getInt("comment"));
+                                postList.add(post);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+                        rvPost.setLayoutManager(layoutManager);
+                        rvPost.setNestedScrollingEnabled(false);
+                        pAdapter = new PostAdapter(ClassStreamFragment.this.getActivity(), postList, ClassStreamFragment.this);
+                        rvPost.setAdapter(pAdapter);
+
+                        llLoad.setVisibility(View.GONE);
+                        llPost.setVisibility(View.VISIBLE);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Volley", "Error : " + error.getMessage());
+                    }
+                });
+        AppController.getInstance().addToRequestQueue(rez);
     }
 
     @Override
@@ -117,5 +187,17 @@ public class ClassStreamFragment extends Fragment {
         if (mQ != null) {
             mQ.cancelAllRequest(getActivity());
         }
+    }
+
+
+    @Override
+    public void doClick(int post) {
+        //Log.d("Volley : ", "position : " + postList.get(post).getPostid());
+        Intent i = new Intent(getContext(), PostvActivity.class);
+        i.putExtra("postid", postList.get(post).getPostid());
+        i.putExtra("dspname", postList.get(post).getDspname());
+        i.putExtra("lesson", postList.get(post).getLesson());
+        i.putExtra("content", postList.get(post).getContent());
+        startActivity(i);
     }
 }

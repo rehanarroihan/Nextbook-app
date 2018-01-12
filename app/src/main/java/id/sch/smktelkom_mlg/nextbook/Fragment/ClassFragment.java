@@ -2,6 +2,7 @@ package id.sch.smktelkom_mlg.nextbook.Fragment;
 
 
 import android.content.ContextWrapper;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,10 +11,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.android.volley.Request;
@@ -70,7 +73,14 @@ public class ClassFragment extends Fragment {
 
         fab = getView().findViewById(R.id.menu);
         ivNoClass = getView().findViewById(R.id.imageViewNoClass);
+        FloatingActionButton fabCreate = getView().findViewById(R.id.menu_item);
         FloatingActionButton fabJoin = getView().findViewById(R.id.menu_item1);
+        fabCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nClassDialog();
+            }
+        });
         fabJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,6 +100,31 @@ public class ClassFragment extends Fragment {
         });
         getActivity().setTitle("Loading...");
         isHaveClass();
+    }
+
+    public void nClassDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.newclass_layout, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText etClName = dialogView.findViewById(R.id.editTextClassName);
+        final EditText etClDesc = dialogView.findViewById(R.id.editTextClassDesc);
+
+        dialogBuilder.setTitle("Buat Kelas Baru");
+        dialogBuilder.setMessage("Masukkan form yang tersedia");
+        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //do something with edt.getText().toString();
+            }
+        });
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //pass
+            }
+        });
+        AlertDialog b = dialogBuilder.create();
+        b.show();
     }
 
     public void isHaveClass() {
@@ -163,6 +198,15 @@ public class ClassFragment extends Fragment {
             viewPager.setVisibility(View.GONE);
             fab.setVisibility(View.VISIBLE);
             ivNoClass.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        AppController mQ = new AppController();
+        if (mQ != null) {
+            mQ.cancelAllRequest(getActivity());
         }
     }
 

@@ -3,6 +3,7 @@ package id.sch.smktelkom_mlg.nextbook.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -38,6 +39,8 @@ public class ClassScheduleFragment extends Fragment {
     ArrayList<Schedule> mList = new ArrayList<>();
 
     Unbinder unbinder;
+    @BindView(R.id.swipeRefreshSch)
+    SwipeRefreshLayout srSch;
 
     @BindView(R.id.textViewN1)
     TextView tvN1;
@@ -95,7 +98,17 @@ public class ClassScheduleFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initSchedule();
+        srSch.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initSchedule();
+            }
+        });
+        srSch.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
     }
 
     private void initSchedule() {
@@ -106,8 +119,10 @@ public class ClassScheduleFragment extends Fragment {
         if (prm <= 6) {
             haveschedule();
         } else if (prm == 7) {
+            srSch.setRefreshing(false);
             llLoading.setVisibility(View.GONE);
             llSc.setVisibility(View.VISIBLE);
+            prm = 0;
         }
     }
 
@@ -129,7 +144,7 @@ public class ClassScheduleFragment extends Fragment {
                             } else {
                                 Log.d("Volley", day[prm] + " tidak ada jadwal");
                                 tvn[prm].setVisibility(View.VISIBLE);
-                                tvn[prm].setText("Saiki preii, saiki preii");
+                                tvn[prm].setText("TIDAK ADA JADWAL");
                                 rv[prm].setVisibility(View.GONE);
                                 if (prm != 7) {
                                     prm++;
@@ -175,7 +190,7 @@ public class ClassScheduleFragment extends Fragment {
 
                                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
                                 rv[prm].setLayoutManager(layoutManager);
-                                rv[prm].setNestedScrollingEnabled(false);
+                                //rv[prm].setNestedScrollingEnabled(false);
                                 mAdapter = new ScheduleAdapter(getContext(), mList);
                                 rv[prm].setAdapter(mAdapter);
                             } catch (JSONException e) {

@@ -57,41 +57,12 @@
         android:text="Login"
         android:textColor="@android:color/white" />
 
-    <LinearLayout
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/buttonFBLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:layout_marginTop="9dp" />
 
-        <Button
-            android:id="@+id/gLogin"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginRight="2dp"
-            android:layout_marginTop="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/g_button"
-            android:drawableLeft="@drawable/google"
-            android:drawablePadding="-20dp"
-            android:paddingLeft="30dp"
-            android:text="Google"
-            android:textColor="@android:color/black" />
-
-        <!--<Button-->
-        <!--android:id="@+id/fLogin"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:layout_marginLeft="2dp"-->
-        <!--android:layout_marginTop="5dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:background="@drawable/f_button"-->
-        <!--android:drawableLeft="@drawable/fbwhite"-->
-        <!--android:drawablePadding="-20dp"-->
-        <!--android:paddingLeft="30dp"-->
-        <!--android:text="Facebook"-->
-        <!--android:textColor="@android:color/white" />-->
-
-    </LinearLayout>
 
     <TextView
         android:id="@+id/textViewRegis"
@@ -100,10 +71,5 @@
         android:padding="10dp"
         android:text="Dont have acoount ? Register"
         android:textAlignment="center" />
-
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/buttonFBLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
 </LinearLayout>
