@@ -11,8 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -32,7 +30,6 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import de.hdodenhof.circleimageview.CircleImageView;
 import id.sch.smktelkom_mlg.nextbook.Adapter.PostAdapter;
 import id.sch.smktelkom_mlg.nextbook.Model.Post;
 import id.sch.smktelkom_mlg.nextbook.PostvActivity;
@@ -53,18 +50,6 @@ public class ClassStreamFragment extends Fragment implements PostAdapter.IPostAd
     @BindView(R.id.textViewNextLesson)
     TextView tvNextLesson;
 
-    //Initialize new post box
-    @BindView(R.id.imageViewNewPostUser)
-    CircleImageView ivNPostUser;
-    @BindView(R.id.textViewNewPostUser)
-    TextView tvNPostUser;
-    @BindView(R.id.textViewNPostLesson)
-    TextView tvNPostLesson;
-    @BindView(R.id.editTextPost)
-    EditText etNPost;
-    @BindView(R.id.buttonPost)
-    Button btPost;
-
     @BindView(R.id.linearLayoutLoadingStr)
     LinearLayout llLoad;
     @BindView(R.id.linearLayoutPost)
@@ -74,6 +59,8 @@ public class ClassStreamFragment extends Fragment implements PostAdapter.IPostAd
 
     private String lessonnow = "";
     private Integer lncode = 0;
+
+    private boolean wesloading = false;
 
     public ClassStreamFragment() {
         // Required empty public constructor
@@ -89,6 +76,12 @@ public class ClassStreamFragment extends Fragment implements PostAdapter.IPostAd
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        if (postList.isEmpty()) {
+            loadData();
+        }
+    }
+
+    private void loadData() {
         String url = Config.ServerURL + "aclass/lessonnow?cid=" + Prefs.getString("classid", null);
         Log.d("Volley", "Sending request to : " + url);
         StringRequest reqs = new StringRequest(Request.Method.GET, url,
@@ -105,9 +98,8 @@ public class ClassStreamFragment extends Fragment implements PostAdapter.IPostAd
                             lncode = res.getInt("lessonid");
                             if (codes == 1) {
                                 lessonnow = res.getString("lesson");
-                                tvNPostLesson.setText(lessonnow);
                             } else {
-                                tvNPostLesson.setText("Other");
+                                lessonnow = "Other";
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -121,12 +113,11 @@ public class ClassStreamFragment extends Fragment implements PostAdapter.IPostAd
             }
         });
         AppController.getInstance().addToRequestQueue(reqs);
-        tvNPostUser.setText(Prefs.getString("fullname", null));
-
         loadUserPost();
     }
 
     private void loadUserPost() {
+        postList.clear();
         String url = Config.ServerURL + "aclass/postlist?cid=" + Prefs.getString("classid", null);
         Log.d("Volley", "Sending request to : " + url);
         JsonArrayRequest rez = new JsonArrayRequest(Request.Method.GET, url, null,
@@ -140,11 +131,9 @@ public class ClassStreamFragment extends Fragment implements PostAdapter.IPostAd
                                 Post post = new Post();
                                 post.setPostid(data.getString("postid"));
                                 post.setDspname(data.getString("dspname"));
-                                post.setProv(data.getString("prov"));
                                 post.setPict(data.getString("pict"));
-                                post.setPicts(data.getString("picts"));
                                 post.setLesson(data.getString("lesson"));
-                                post.setCreate(data.getString("creat"));
+                                post.setCreate(data.getString("create"));
                                 post.setContent(data.getString("content"));
                                 post.setImg(data.getString("img"));
                                 post.setDoc(data.getString("doc"));
@@ -162,6 +151,7 @@ public class ClassStreamFragment extends Fragment implements PostAdapter.IPostAd
 
                         llLoad.setVisibility(View.GONE);
                         llPost.setVisibility(View.VISIBLE);
+                        wesloading = true;
                     }
                 },
                 new Response.ErrorListener() {
@@ -189,15 +179,14 @@ public class ClassStreamFragment extends Fragment implements PostAdapter.IPostAd
         }
     }
 
-
     @Override
-    public void doClick(int post) {
-        //Log.d("Volley : ", "position : " + postList.get(post).getPostid());
+    public void doClick(int pos) {
         Intent i = new Intent(getContext(), PostvActivity.class);
-        i.putExtra("postid", postList.get(post).getPostid());
-        i.putExtra("dspname", postList.get(post).getDspname());
-        i.putExtra("lesson", postList.get(post).getLesson());
-        i.putExtra("content", postList.get(post).getContent());
+        i.putExtra("postid", postList.get(pos).getPostid());
+        i.putExtra("create", postList.get(pos).getCreate());
+        i.putExtra("dspname", postList.get(pos).getDspname());
+        i.putExtra("lesson", postList.get(pos).getLesson());
+        i.putExtra("content", postList.get(pos).getContent());
         startActivity(i);
     }
 }

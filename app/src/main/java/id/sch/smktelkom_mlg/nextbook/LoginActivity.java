@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
+                parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location");
                 request.setParameters(parameters);
                 request.executeAsync();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -213,7 +213,6 @@ public class LoginActivity extends AppCompatActivity {
     private void doLogin() {
         if (isValid()) {
             String url = Config.ServerURL + "login";
-
             btLogin.setText("Please wait ..");
             btLogin.setEnabled(false);
             Log.d("Volley", "Sending request to : " + url);

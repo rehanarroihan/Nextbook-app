@@ -26,7 +26,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="SWIPE KE BAWAH UNTUK MENGAKSES JADWAL" />
+                    android:layout_marginTop="50dp"
+                    android:gravity="center"
+                    android:text="SWIPE KE BAWAH \nUNTUK MENGAKSES JADWAL"
+                    android:textAlignment="center"
+                    android:textStyle="italic" />
 
             </LinearLayout>
 

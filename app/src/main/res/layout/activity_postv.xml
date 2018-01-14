@@ -1,8 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="id.sch.smktelkom_mlg.nextbook.PostvActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:clickable="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:paddingTop="7dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageViewVUser"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/face" />
+
+            <TextView
+                android:id="@+id/textViewVUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="4dp"
+                android:layout_toEndOf="@+id/imageViewVUser"
+                android:text="--,--"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+            <TextView
+                android:id="@+id/textViewCucuk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textViewVUser"
+                android:layout_alignBottom="@+id/textViewVUser"
+                android:layout_toEndOf="@+id/textViewVUser"
+                android:text="  >  "
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewVLesson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textViewCucuk"
+                android:layout_alignBottom="@+id/textViewCucuk"
+                android:layout_toEndOf="@+id/textViewCucuk"
+                android:text="--,--"
+                android:textColor="@color/blue"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewVCreate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewVUser"
+                android:layout_toEndOf="@+id/imageViewVUser"
+                android:text="19 Februari 2018, 15.00" />
+
+            <TextView
+                android:id="@+id/textViewVContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/imageViewVUser"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="6dp"
+                android:text="Lorem ipsum dolor sit amet" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutOpo"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_below="@+id/textViewVContent"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="9dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/bggrey"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/iconFile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/ic_attachment_black_24dp"
+                    android:tint="#BDBDBD" />
+
+                <ImageView
+                    android:id="@+id/iconPhoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toEndOf="@+id/iconFile"
+                    android:src="@drawable/ic_photo_black_24dp"
+                    android:tint="#BDBDBD" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relativeLayoutOpo"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewKomen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:text="9 Komentar"
+                    android:textColor="#757575"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

@@ -17,7 +17,6 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import id.sch.smktelkom_mlg.nextbook.Model.Post;
 import id.sch.smktelkom_mlg.nextbook.R;
-import id.sch.smktelkom_mlg.nextbook.Util.Config;
 
 /**
  * Created by Rehan on 29/12/2017.
@@ -45,15 +44,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         Post post = mList.get(position);
         holder.tvUser.setText(post.getDspname());
-        if (post.getLesson().equals(null)) {
-            holder.tvLesson.setText("Other");
-        } else {
-            holder.tvLesson.setText(post.getLesson());
-        }
+        holder.tvLesson.setText(post.getLesson());
         holder.tvCreate.setText(post.getCreate());
         holder.tvContent.setText(post.getContent());
         holder.tvComment.setText(String.valueOf(post.getComment()) + " Komentar");
-        if (post.getPict().equals("N")) {
+        if (post.getImg().equals("N")) {
             holder.ivPt.setVisibility(View.GONE);
         } else {
             holder.ivPt.setVisibility(View.VISIBLE);
@@ -63,15 +58,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         } else {
             holder.ivFile.setVisibility(View.VISIBLE);
         }
-        if (!post.getProv().equals("email")) {
-            Glide.with(context)
-                    .load(post.getPicts())
-                    .into(holder.ivUser);
-        } else {
-            Glide.with(context)
-                    .load(Config.ImageURL + "2.0/img/user/" + post.getPict())
-                    .into(holder.ivUser);
-        }
+        Glide.with(context).load(post.getPict()).into(holder.ivUser);
     }
 
     @Override
@@ -83,7 +70,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     public interface IPostAdapter {
-        void doClick(int post);
+        void doClick(int pos);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

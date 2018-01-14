@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="10dp"
+    tools:context="id.sch.smktelkom_mlg.nextbook.NpostActivity">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:paddingTop="7dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageViewNewPostUser"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="9dp"
+                android:src="@drawable/face" />
+
+            <TextView
+                android:id="@+id/textViewNewPostUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/imageViewNewPostUser"
+                android:text="Rehan Arroihan"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+            <TextView
+                android:id="@+id/textViewCucuk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textViewNewPostUser"
+                android:layout_alignBottom="@+id/textViewNewPostUser"
+                android:layout_toEndOf="@+id/textViewNewPostUser"
+                android:text="  >  "
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewNPostLesson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textViewCucuk"
+                android:layout_alignBottom="@+id/textViewCucuk"
+                android:layout_toEndOf="@+id/textViewCucuk"
+                android:text="Loading..."
+                android:textColor="@color/com_facebook_blue"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editTextPost"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_below="@+id/imageViewNewPostUser"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="5dp"
+                android:background="#00000000"
+                android:gravity="top"
+                android:hint="Write a post..." />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editTextPost"
+                android:background="#F5F5F5">
+
+                <ImageButton
+                    android:id="@+id/imageButtonPict"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:padding="7dp"
+                    android:src="@drawable/ic_photo_black_24dp"
+                    android:tint="#9E9E9E" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonFile"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/imageButtonPict"
+                    android:padding="7dp"
+                    android:src="@drawable/ic_attachment_black_24dp"
+                    android:tint="#9E9E9E" />
+
+                <Button
+                    android:id="@+id/buttonPost"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="@color/com_facebook_blue"
+                    android:text="POST"
+                    android:textColor="@android:color/white" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

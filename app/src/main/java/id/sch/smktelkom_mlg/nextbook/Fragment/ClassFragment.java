@@ -1,8 +1,7 @@
 package id.sch.smktelkom_mlg.nextbook.Fragment;
 
 
-import android.content.ContextWrapper;
-import android.content.DialogInterface;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,12 +11,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -30,6 +32,9 @@ import com.pixplicity.easyprefs.library.Prefs;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import id.sch.smktelkom_mlg.nextbook.R;
 import id.sch.smktelkom_mlg.nextbook.ScannerActivity;
 import id.sch.smktelkom_mlg.nextbook.Util.AppController;
@@ -40,8 +45,8 @@ import id.sch.smktelkom_mlg.nextbook.Util.Config;
  */
 
 public class ClassFragment extends Fragment {
-    public static TabLayout tabLayout;
-    public static ViewPager viewPager;
+    public TabLayout tabLayout;
+    public ViewPager viewPager;
 
     private FloatingActionMenu fab;
     private ImageView ivNoClass;
@@ -53,12 +58,6 @@ public class ClassFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new Prefs.Builder()
-                .setContext(getActivity())
-                .setMode(ContextWrapper.MODE_PRIVATE)
-                .setPrefsName(getActivity().getPackageName())
-                .setUseDefaultSharedPreference(true)
-                .build();
     }
 
     @Override
@@ -105,26 +104,90 @@ public class ClassFragment extends Fragment {
     public void nClassDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = this.getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.newclass_layout, null);
-        dialogBuilder.setView(dialogView);
-
-        final EditText etClName = dialogView.findViewById(R.id.editTextClassName);
-        final EditText etClDesc = dialogView.findViewById(R.id.editTextClassDesc);
-
+        final View dialogv = inflater.inflate(R.layout.newclass_layout, null);
+        dialogBuilder.setView(dialogv);
         dialogBuilder.setTitle("Buat Kelas Baru");
-        dialogBuilder.setMessage("Masukkan form yang tersedia");
-        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                //do something with edt.getText().toString();
+        dialogBuilder.setMessage("Isikan form yang tersedia");
+
+        final EditText etClName = dialogv.findViewById(R.id.editTextClassName);
+        final EditText etClDesc = dialogv.findViewById(R.id.editTextClassDesc);
+        final String cname = etClName.getText().toString();
+        final String cdesc = etClDesc.getText().toString();
+        Button btCreate = dialogv.findViewById(R.id.buttonCreateClass);
+        btCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!TextUtils.isEmpty(cname) && !TextUtils.isEmpty(cdesc)) {
+                    Log.d("Class Fragment", "Clicked " + cname + " " + cdesc);
+                    createClass(cname, cdesc);
+                } else {
+
+                }
             }
         });
-        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                //pass
-            }
-        });
+//        dialogBuilder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int whichButton) {
+//                Log.d("Class Fragment", "Clicked " + cname + " " + cdesc);
+//            }
+//        });
+//        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int whichButton) {
+//                //pass
+//            }
+//        });
         AlertDialog b = dialogBuilder.create();
         b.show();
+    }
+
+    private void createClass(final String cname, final String cdesc) {
+        final ProgressDialog dialog = new ProgressDialog(getActivity());
+        dialog.setMessage("Membuat kelas");
+        dialog.show();
+
+        String url = Config.ServerURL + "aclass";
+        Log.d("Volley", "Sending request to : " + url);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject res = new JSONObject(response);
+                            Log.d("Volley", "Response : " + response);
+                            Integer code = res.getInt("code");
+                            if (code == 1) {
+                                dialog.dismiss();
+                                Toast.makeText(getActivity(), "Berhasil membuat kelas",
+                                        Toast.LENGTH_LONG).show();
+                                getActivity().finish();
+                                startActivity(getActivity().getIntent());
+                            } else if (code == 2) {
+                                dialog.dismiss();
+                                Toast.makeText(getActivity(), "Gagal membuat kelas",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity(), "Gagal membuat kelas",
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("uid", Prefs.getString("uid", null));
+                params.put("name", cname);
+                params.put("descript", cdesc);
+                return params;
+            }
+        };
+        AppController.getInstance().addToRequestQueue(postRequest);
     }
 
     public void isHaveClass() {

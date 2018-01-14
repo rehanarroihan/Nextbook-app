@@ -5,19 +5,16 @@ package id.sch.smktelkom_mlg.nextbook.Model;
  */
 
 public class Post {
-    String postid, dspname, prov, pict, picts, lesson, create, content, img, doc;
+    String postid, dspname, pict, lesson, create, content, img, doc;
     Integer comment;
 
     public Post() {
     }
 
-    public Post(String postid, String dspname, String prov, String pict, String picts,
-                String lesson, String create, String content, String img, String doc, Integer comment) {
+    public Post(String postid, String dspname, String pict, String lesson, String create, String content, String img, String doc, Integer comment) {
         this.postid = postid;
         this.dspname = dspname;
-        this.prov = prov;
         this.pict = pict;
-        this.picts = picts;
         this.lesson = lesson;
         this.create = create;
         this.content = content;
@@ -42,28 +39,12 @@ public class Post {
         this.dspname = dspname;
     }
 
-    public String getProv() {
-        return prov;
-    }
-
-    public void setProv(String prov) {
-        this.prov = prov;
-    }
-
     public String getPict() {
         return pict;
     }
 
     public void setPict(String pict) {
         this.pict = pict;
-    }
-
-    public String getPicts() {
-        return picts;
-    }
-
-    public void setPicts(String picts) {
-        this.picts = picts;
     }
 
     public String getLesson() {

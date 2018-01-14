@@ -84,6 +84,8 @@ public class ClassScheduleFragment extends Fragment {
     private TextView[] tvn;
     private RecyclerView[] rv;
 
+    private boolean onprogress;
+
     public ClassScheduleFragment() {
     }
 
@@ -190,7 +192,7 @@ public class ClassScheduleFragment extends Fragment {
 
                                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
                                 rv[prm].setLayoutManager(layoutManager);
-                                //rv[prm].setNestedScrollingEnabled(false);
+                                rv[prm].setNestedScrollingEnabled(false);
                                 mAdapter = new ScheduleAdapter(getContext(), mList);
                                 rv[prm].setAdapter(mAdapter);
                             } catch (JSONException e) {

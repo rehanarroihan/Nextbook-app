@@ -13,12 +13,13 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageViewPostUser"
-            android:layout_width="47dp"
-            android:layout_height="47dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="9dp"
-            android:paddingLeft="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="4dp"
             android:src="@drawable/face" />
 
         <TextView
@@ -26,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="4dp"
             android:layout_toEndOf="@+id/imageViewPostUser"
             android:text="--,--"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
@@ -58,7 +59,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewPostUser"
             android:layout_toEndOf="@+id/imageViewPostUser"
-            android:text="19 Februari 2018, 15.00" />
+            android:text="19 Februari 2018, 15.00"
+            android:textSize="11sp" />
 
         <TextView
             android:id="@+id/textViewContent"
@@ -66,16 +68,19 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/imageViewPostUser"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="9dp"
             android:text="Lorem ipsum laLorem ipsum lalalalal " />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewContent"
-            android:layout_marginTop="30dp"
-            android:background="#EEEEEE"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/bggrey"
             android:padding="5dp">
 
             <ImageView
@@ -104,6 +109,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
                 android:text="9 Komentar"
+                android:textColor="#757575"
                 android:textStyle="bold" />
 
         </RelativeLayout>

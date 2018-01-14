@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/ll0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -76,86 +77,7 @@
 
         </android.support.v7.widget.CardView>
 
-
         <!--POST BOX-->
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:paddingBottom="7dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="7dp">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imageViewNewPostUser"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginRight="9dp"
-                    android:src="@drawable/face" />
-
-                <TextView
-                    android:id="@+id/textViewNewPostUser"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginTop="10dp"
-                    android:layout_toEndOf="@+id/imageViewNewPostUser"
-                    android:text="Rehan Arroihan"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                <TextView
-                    android:id="@+id/textViewCucuk"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/textViewNewPostUser"
-                    android:layout_alignBottom="@+id/textViewNewPostUser"
-                    android:layout_toEndOf="@+id/textViewNewPostUser"
-                    android:text="  >  "
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textViewNPostLesson"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/textViewCucuk"
-                    android:layout_alignBottom="@+id/textViewCucuk"
-                    android:layout_toEndOf="@+id/textViewCucuk"
-                    android:text="Loading..."
-                    android:textColor="@color/com_facebook_blue"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/editTextPost"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_below="@+id/imageViewNewPostUser"
-                    android:layout_marginTop="5dp"
-                    android:background="#00000000"
-                    android:gravity="top"
-                    android:hint="Apa yang terjadi wkwkwkw..." />
-
-                <Button
-                    android:id="@+id/buttonPost"
-                    android:layout_width="70dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_below="@+id/editTextPost"
-                    android:layout_marginRight="5dp"
-                    android:background="@color/com_facebook_blue"
-                    android:text="POST"
-                    android:textColor="@android:color/white" />
-
-            </RelativeLayout>
-
-        </android.support.v7.widget.CardView>
-
         <LinearLayout
             android:id="@+id/linearLayoutLoadingStr"
             android:layout_width="match_parent"
@@ -185,6 +107,15 @@
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="10dp"
+            android:alpha="0.3"
+            android:src="@drawable/logo"
+            android:tint="#757575" />
 
     </LinearLayout>
 
