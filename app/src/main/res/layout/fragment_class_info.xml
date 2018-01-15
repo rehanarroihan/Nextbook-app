@@ -1,4 +1,4 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -162,5 +162,15 @@
             android:text="Unenroll Class"
             android:textColor="@android:color/white" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="10dp"
+            android:alpha="0.3"
+            android:src="@drawable/logo"
+            android:tint="#757575" />
+
     </LinearLayout>
-</ScrollView>
+
+</android.support.v4.widget.NestedScrollView>

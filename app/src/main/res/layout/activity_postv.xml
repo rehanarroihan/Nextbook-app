@@ -1,136 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="id.sch.smktelkom_mlg.nextbook.PostvActivity">
 
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:clickable="true">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:paddingTop="7dp">
+            android:layout_marginTop="12dp"
+            android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageViewVUser"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="6dp"
-                android:layout_marginTop="4dp"
-                android:src="@drawable/face" />
-
-            <TextView
-                android:id="@+id/textViewVUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="4dp"
-                android:layout_toEndOf="@+id/imageViewVUser"
-                android:text="--,--"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-            <TextView
-                android:id="@+id/textViewCucuk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textViewVUser"
-                android:layout_alignBottom="@+id/textViewVUser"
-                android:layout_toEndOf="@+id/textViewVUser"
-                android:text="  >  "
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textViewVLesson"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textViewCucuk"
-                android:layout_alignBottom="@+id/textViewCucuk"
-                android:layout_toEndOf="@+id/textViewCucuk"
-                android:text="--,--"
-                android:textColor="@color/blue"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textViewVCreate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textViewVUser"
-                android:layout_toEndOf="@+id/imageViewVUser"
-                android:text="19 Februari 2018, 15.00" />
-
-            <TextView
-                android:id="@+id/textViewVContent"
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/imageViewVUser"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="6dp"
-                android:text="Lorem ipsum dolor sit amet" />
+                android:layout_marginBottom="10dp">
 
-            <RelativeLayout
-                android:id="@+id/relativeLayoutOpo"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_below="@+id/textViewVContent"
-                android:layout_marginBottom="15dp"
-                android:layout_marginLeft="9dp"
-                android:layout_marginRight="9dp"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/bggrey"
-                android:padding="5dp">
-
-                <ImageView
-                    android:id="@+id/iconFile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:src="@drawable/ic_attachment_black_24dp"
-                    android:tint="#BDBDBD" />
-
-                <ImageView
-                    android:id="@+id/iconPhoto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toEndOf="@+id/iconFile"
-                    android:src="@drawable/ic_photo_black_24dp"
-                    android:tint="#BDBDBD" />
-
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/relativeLayoutOpo"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textViewKomen"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="5dp"
-                    android:text="9 Komentar"
-                    android:textColor="#757575"
-                    android:textStyle="bold" />
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:paddingTop="7dp">
 
-            </LinearLayout>
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imageViewPostUserV"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_marginTop="4dp"
+                        android:src="@drawable/face" />
 
-        </RelativeLayout>
+                    <TextView
+                        android:id="@+id/textViewPostUserV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="4dp"
+                        android:layout_toEndOf="@+id/imageViewPostUserV"
+                        android:text="--,--"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-    </android.support.v7.widget.CardView>
+                    <TextView
+                        android:id="@+id/textViewCucukV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/textViewPostUserV"
+                        android:layout_alignBottom="@+id/textViewPostUserV"
+                        android:layout_toEndOf="@+id/textViewPostUserV"
+                        android:text="  >  "
+                        android:textStyle="bold" />
 
-</LinearLayout>
+                    <TextView
+                        android:id="@+id/textViewPostLessonV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/textViewCucukV"
+                        android:layout_alignBottom="@+id/textViewCucukV"
+                        android:layout_toEndOf="@+id/textViewCucukV"
+                        android:text="--,--"
+                        android:textColor="@color/blue"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textViewPostCreateV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textViewPostUserV"
+                        android:layout_toEndOf="@+id/imageViewPostUserV"
+                        android:text="19 Februari 2018, 15.00"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/textViewContentV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/imageViewPostUserV"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="9dp"
+                        android:text="Lorem ipsum laLorem ipsum lalalalal " />
+
+                    <RelativeLayout
+                        android:id="@+id/relLa"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textViewContentV"
+                        android:layout_marginBottom="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="40dp"
+                        android:background="@drawable/bggrey"
+                        android:padding="5dp">
+
+                        <ImageView
+                            android:id="@+id/iconFileV"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginLeft="5dp"
+                            android:src="@drawable/ic_attachment_black_24dp"
+                            android:tint="#BDBDBD" />
+
+                        <ImageView
+                            android:id="@+id/iconPhotoV"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignBottom="@+id/textViewKomen"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toEndOf="@+id/iconFileV"
+                            android:src="@drawable/ic_photo_black_24dp"
+                            android:tint="#BDBDBD" />
+
+                        <TextView
+                            android:id="@+id/textViewKomenV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:text="9 Komentar"
+                            android:textColor="#757575"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerViewComment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/relLa"
+                        android:visibility="gone" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/recyclerViewComment"
+                        android:background="#EEEEEE"
+                        android:paddingBottom="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/imageViewCmntUser"
+                            android:layout_width="33dp"
+                            android:layout_height="33dp"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginRight="8dp"
+                            android:src="@drawable/face" />
+
+                        <EditText
+                            android:id="@+id/editTextComment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_toEndOf="@+id/imageViewCmntUser"
+                            android:alpha="0.6"
+                            android:background="@drawable/cmntedittext"
+                            android:hint="Tulis Komentar..."
+                            android:imeOptions="actionSend"
+                            android:inputType="text"
+                            android:padding="8dp"
+                            android:paddingBottom="10dp"
+                            android:paddingStart="14dp"
+                            android:textSize="13sp" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="10dp"
+                android:alpha="0.3"
+                android:src="@drawable/logo"
+                android:tint="#757575" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

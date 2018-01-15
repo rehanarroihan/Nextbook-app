@@ -34,7 +34,8 @@ import id.sch.smktelkom_mlg.nextbook.Fragment.ProfileFragment;
 import id.sch.smktelkom_mlg.nextbook.Util.AppController;
 import id.sch.smktelkom_mlg.nextbook.Util.Config;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
     public static Activity MA;
     TextView tvUsernameDrawer, tvEmailDrawer;
     private NavigationView navigationView;

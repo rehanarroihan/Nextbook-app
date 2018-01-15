@@ -5,14 +5,15 @@ package id.sch.smktelkom_mlg.nextbook.Model;
  */
 
 public class Post {
-    String postid, dspname, pict, lesson, create, content, img, doc;
+    String postid, uid, dspname, pict, lesson, create, content, img, doc;
     Integer comment;
 
     public Post() {
     }
 
-    public Post(String postid, String dspname, String pict, String lesson, String create, String content, String img, String doc, Integer comment) {
+    public Post(String postid, String uid, String dspname, String pict, String lesson, String create, String content, String img, String doc, Integer comment) {
         this.postid = postid;
+        this.uid = uid;
         this.dspname = dspname;
         this.pict = pict;
         this.lesson = lesson;
@@ -29,6 +30,14 @@ public class Post {
 
     public void setPostid(String postid) {
         this.postid = postid;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getDspname() {

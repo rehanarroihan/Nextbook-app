@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#EEEEEE"
+    android:paddingBottom="10dp"
+    android:paddingEnd="10dp"
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageViewCmntUser"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="8dp"
+        android:src="@drawable/face" />
+
+    <TextView
+        android:id="@+id/textViewUsrCmnt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/imageViewCmntUser"
+        android:hint="Rehan Arroihan" />
+
+    <TextView
+        android:id="@+id/textViewDateCmnt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewUsrCmnt"
+        android:layout_toEndOf="@+id/imageViewCmntUser"
+        android:text="12 Desember 2017, 15.00"
+        android:textColor="#BDBDBD"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/buttonDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewUsrCmnt"
+        android:layout_marginLeft="7dp"
+        android:layout_toEndOf="@+id/textViewDateCmnt"
+        android:text="Hapus"
+        android:textColor="#42A5F5"
+        android:textSize="11sp" />
+
+</RelativeLayout>

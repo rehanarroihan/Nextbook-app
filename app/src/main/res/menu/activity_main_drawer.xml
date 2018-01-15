@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_class"
-            android:icon="@drawable/ic_class_black_24dp"
+            android:icon="@drawable/ic_menu_camera"
             android:title="Class" />
         <!--<item-->
         <!--android:id="@+id/nav_card"-->
@@ -14,7 +14,7 @@
         <!--android:title="Card" />-->
         <item
             android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_account_circle_black_24dp"
+            android:icon="@drawable/ic_menu_camera"
             android:title="Profile" />
         <!--<item-->
         <!--android:id="@+id/nav_setting"-->
@@ -30,7 +30,7 @@
             <!--android:title="About" />-->
             <item
                 android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_lock_black_24dp"
+                android:icon="@drawable/ic_menu_camera"
                 android:title="Logout" />
         </menu>
     </item>

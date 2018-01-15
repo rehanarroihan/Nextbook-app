@@ -84,8 +84,6 @@ public class ClassScheduleFragment extends Fragment {
     private TextView[] tvn;
     private RecyclerView[] rv;
 
-    private boolean onprogress;
-
     public ClassScheduleFragment() {
     }
 
@@ -110,7 +108,6 @@ public class ClassScheduleFragment extends Fragment {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-
     }
 
     private void initSchedule() {

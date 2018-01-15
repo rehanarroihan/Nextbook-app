@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class NpostActivity extends AppCompatActivity {
-    @BindView(R.id.imageViewVUser)
+    @BindView(R.id.imageViewPostUserV)
     CircleImageView ivUser;
     @BindView(R.id.imageViewNewPostUser)
     CircleImageView ivNPostUser;
@@ -46,9 +46,9 @@ public class NpostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_npost);
-        ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Tulis Baru");
+        ButterKnife.bind(this);
 
         tvNPostUser.setText(Prefs.getString("fullname", null));
 

@@ -32,6 +32,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import id.sch.smktelkom_mlg.nextbook.Adapter.PostAdapter;
 import id.sch.smktelkom_mlg.nextbook.Model.Post;
+import id.sch.smktelkom_mlg.nextbook.NpostActivity;
 import id.sch.smktelkom_mlg.nextbook.PostvActivity;
 import id.sch.smktelkom_mlg.nextbook.R;
 import id.sch.smktelkom_mlg.nextbook.Util.AppController;
@@ -56,11 +57,11 @@ public class ClassStreamFragment extends Fragment implements PostAdapter.IPostAd
     LinearLayout llPost;
     @BindView(R.id.recyclerViewPost)
     RecyclerView rvPost;
+    @BindView(R.id.fabnew)
+    android.support.design.widget.FloatingActionButton fabnew;
 
     private String lessonnow = "";
     private Integer lncode = 0;
-
-    private boolean wesloading = false;
 
     public ClassStreamFragment() {
         // Required empty public constructor
@@ -76,9 +77,13 @@ public class ClassStreamFragment extends Fragment implements PostAdapter.IPostAd
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (postList.isEmpty()) {
-            loadData();
-        }
+        fabnew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), NpostActivity.class));
+            }
+        });
+        loadData();
     }
 
     private void loadData() {
@@ -130,6 +135,7 @@ public class ClassStreamFragment extends Fragment implements PostAdapter.IPostAd
                                 JSONObject data = response.getJSONObject(i);
                                 Post post = new Post();
                                 post.setPostid(data.getString("postid"));
+                                post.setUid(data.getString("uid"));
                                 post.setDspname(data.getString("dspname"));
                                 post.setPict(data.getString("pict"));
                                 post.setLesson(data.getString("lesson"));
@@ -151,7 +157,6 @@ public class ClassStreamFragment extends Fragment implements PostAdapter.IPostAd
 
                         llLoad.setVisibility(View.GONE);
                         llPost.setVisibility(View.VISIBLE);
-                        wesloading = true;
                     }
                 },
                 new Response.ErrorListener() {
@@ -183,10 +188,13 @@ public class ClassStreamFragment extends Fragment implements PostAdapter.IPostAd
     public void doClick(int pos) {
         Intent i = new Intent(getContext(), PostvActivity.class);
         i.putExtra("postid", postList.get(pos).getPostid());
+        i.putExtra("pp", postList.get(pos).getPict());
+        i.putExtra("uid", postList.get(pos).getUid());
         i.putExtra("create", postList.get(pos).getCreate());
         i.putExtra("dspname", postList.get(pos).getDspname());
         i.putExtra("lesson", postList.get(pos).getLesson());
         i.putExtra("content", postList.get(pos).getContent());
+        i.putExtra("comment", String.valueOf(postList.get(pos).getComment()));
         startActivity(i);
     }
 }
