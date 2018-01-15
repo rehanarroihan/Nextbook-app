@@ -85,58 +85,87 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/imageViewPostUserV"
+                        android:layout_marginBottom="40dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="9dp"
                         android:text="Lorem ipsum laLorem ipsum lalalalal " />
 
-                    <RelativeLayout
-                        android:id="@+id/relLa"
+                    <!--IKI FILE AMBEK FOTO-->
+                    <LinearLayout
+                        android:id="@+id/linearLayoutA"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/textViewContentV"
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginTop="40dp"
-                        android:background="@drawable/bggrey"
-                        android:padding="5dp">
+                        android:layout_marginBottom="10dp"
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/iconFileV"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginLeft="5dp"
-                            android:src="@drawable/ic_attachment_black_24dp"
-                            android:tint="#BDBDBD" />
-
-                        <ImageView
-                            android:id="@+id/iconPhotoV"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_alignBottom="@+id/textViewKomen"
-                            android:layout_marginLeft="5dp"
-                            android:layout_toEndOf="@+id/iconFileV"
-                            android:src="@drawable/ic_photo_black_24dp"
-                            android:tint="#BDBDBD" />
-
-                        <TextView
-                            android:id="@+id/textViewKomenV"
-                            android:layout_width="wrap_content"
+                        <RelativeLayout
+                            android:id="@+id/relativeLayoutImg"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="5dp"
-                            android:text="9 Komentar"
-                            android:textColor="#757575"
-                            android:textStyle="bold" />
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:background="@drawable/bggrey"
+                            android:padding="5dp">
 
-                    </RelativeLayout>
+                            <ImageView
+                                android:id="@+id/iconFotoV"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginLeft="5dp"
+                                android:src="@drawable/ic_photo_black_24dp"
+                                android:tint="#BDBDBD" />
+
+                            <TextView
+                                android:id="@+id/textViewFoto"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_toEndOf="@+id/iconFotoV"
+                                android:text="file.jpg"
+                                android:textColor="#757575"
+                                android:textSize="15dp" />
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/relativeLayoutAttach"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/relativeLayoutImg"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/bggrey"
+                            android:padding="5dp">
+
+                            <ImageView
+                                android:id="@+id/iconFileV"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginLeft="5dp"
+                                android:src="@drawable/ic_attachment_black_24dp"
+                                android:tint="#BDBDBD" />
+
+                            <TextView
+                                android:id="@+id/textViewAttach"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_toEndOf="@+id/iconFileV"
+                                android:text=""
+                                android:textColor="#757575"
+                                android:textSize="15dp" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recyclerViewComment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/relLa"
+                        android:layout_below="@+id/linearLayoutA"
                         android:visibility="gone" />
 
                     <RelativeLayout

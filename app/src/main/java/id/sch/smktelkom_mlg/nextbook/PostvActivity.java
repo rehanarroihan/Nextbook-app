@@ -2,6 +2,8 @@ package id.sch.smktelkom_mlg.nextbook;
 
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -15,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,14 +60,21 @@ public class PostvActivity extends AppCompatActivity
     TextView tvCreate;
     @BindView(R.id.textViewContentV)
     TextView tvContent;
-    @BindView(R.id.textViewKomenV)
-    TextView tvComment;
     @BindView(R.id.recyclerViewComment)
     RecyclerView rvComment;
     @BindView(R.id.editTextComment)
     EditText etComment;
     @BindView(R.id.coor)
     CoordinatorLayout coordinatorLayout;
+
+    @BindView(R.id.relativeLayoutImg)
+    RelativeLayout rlImg;
+    @BindView(R.id.relativeLayoutAttach)
+    RelativeLayout rlFile;
+    @BindView(R.id.textViewFoto)
+    TextView tvFoto;
+    @BindView(R.id.textViewAttach)
+    TextView tvFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,13 +92,43 @@ public class PostvActivity extends AppCompatActivity
                 .setUseDefaultSharedPreference(true)
                 .build();
 
+        final String file = getIntent().getStringExtra("file");
+        final String foto = getIntent().getStringExtra("foto");
+        if (!file.equals("N")) {
+            tvFile.setText(getIntent().getStringExtra("file"));
+            rlFile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String url = Config.ImageURL + "2.0/file/doc/" + file;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
+                }
+            });
+        } else {
+            rlFile.setVisibility(View.GONE);
+        }
+        if (!foto.equals("N")) {
+            tvFoto.setText(foto);
+            rlImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String url = Config.ImageURL + "2.0/file/img/" + foto;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
+                }
+            });
+        } else {
+            rlImg.setVisibility(View.GONE);
+        }
+
         Glide.with(this).load(getIntent().getStringExtra("pp")).into(ivUser);
         tvUser.setText(getIntent().getStringExtra("dspname"));
         tvLesson.setText(getIntent().getStringExtra("lesson"));
         tvCreate.setText(getIntent().getStringExtra("create"));
         tvContent.setText(getIntent().getStringExtra("content"));
         String cmncnt = getIntent().getStringExtra("comment");
-        tvComment.setText(cmncnt + " Komentar");
 
         if (Integer.valueOf(cmncnt) > 0) {
             loadComment();

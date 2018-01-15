@@ -195,6 +195,8 @@ public class ClassStreamFragment extends Fragment implements PostAdapter.IPostAd
         i.putExtra("lesson", postList.get(pos).getLesson());
         i.putExtra("content", postList.get(pos).getContent());
         i.putExtra("comment", String.valueOf(postList.get(pos).getComment()));
+        i.putExtra("foto", postList.get(pos).getImg());
+        i.putExtra("file", postList.get(pos).getDoc());
         startActivity(i);
     }
 }
