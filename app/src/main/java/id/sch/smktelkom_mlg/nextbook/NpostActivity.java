@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,8 +20,6 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class NpostActivity extends AppCompatActivity {
-    @BindView(R.id.imageViewPostUserV)
-    CircleImageView ivUser;
     @BindView(R.id.imageViewNewPostUser)
     CircleImageView ivNPostUser;
     @BindView(R.id.textViewNewPostUser)
@@ -29,18 +28,20 @@ public class NpostActivity extends AppCompatActivity {
     TextView tvNPostLesson;
     @BindView(R.id.imageButtonPict)
     ImageButton ibPict;
-    @BindView(R.id.imageButtonFile)
-    ImageButton ibFile;
+    //    @BindView(R.id.imageButtonFile)
+//    ImageButton ibFile;
     @BindView(R.id.editTextPost)
     EditText etNPost;
     @BindView(R.id.buttonPost)
     Button btPost;
+
     //post parameter
     private Uri uriFoto = null;
-    private Uri uriFile = null;
+    //private Uri uriFile = null;
     private String content = "";
+
     private int PICK_IMAGE_REQUEST = 1;
-    private int PICKFILE_RESULT_CODE = 1;
+    //private int PICKFILE_RESULT_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,20 +68,22 @@ public class NpostActivity extends AppCompatActivity {
                     startActivityForResult(intent, PICK_IMAGE_REQUEST);
             }
         });
-        ibFile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("file/*");
-                startActivityForResult(Intent.createChooser(intent, "Select File"), PICKFILE_RESULT_CODE);
-            }
-        });
+//        ibFile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
         btPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                letsDo();
             }
         });
+    }
+
+    private void letsDo() {
+        //AppController.getInstance().addToRequestQueue(multipartRequest);
     }
 
     @Override
@@ -89,5 +92,16 @@ public class NpostActivity extends AppCompatActivity {
             finish();
         }
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK) {
+            uriFoto = data.getData();
+            Log.d("Activity result", "onActivityResult: " + uriFoto);
+            ibPict.setBackgroundColor(getResources().getColor(R.color.blue));
+            ibPict.setEnabled(false);
+        }
     }
 }

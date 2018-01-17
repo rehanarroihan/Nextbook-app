@@ -77,7 +77,8 @@
             android:layout_height="wrap_content"
             android:background="@color/blue"
             android:text="Simpan"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:visibility="gone" />
 
     </LinearLayout>
 

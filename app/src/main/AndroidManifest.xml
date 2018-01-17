@@ -41,7 +41,8 @@
         <activity android:name=".ScannerActivity" />
         <activity android:name=".NoconActivity" />
         <activity android:name=".PostvActivity" />
-        <activity android:name=".NpostActivity"></activity>
+        <activity android:name=".NpostActivity" />
+        <activity android:name=".BarcodeCaptureActivity"></activity>
     </application>
 
 </manifest>

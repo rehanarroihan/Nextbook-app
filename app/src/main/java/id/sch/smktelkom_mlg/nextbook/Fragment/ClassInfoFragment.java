@@ -218,10 +218,8 @@ public class ClassInfoFragment extends Fragment {
                                 JSONObject data = response.getJSONObject(i);
                                 Member member = new Member();
                                 member.setName(data.getString("name"));
-                                member.setPp(data.getString("pp"));
                                 member.setEmail(data.getString("email"));
-                                member.setProv(data.getString("prov"));
-                                member.setPps(data.getString("pps"));
+                                member.setPict(data.getString("pict"));
                                 mList.add(member);
                             } catch (JSONException e) {
                                 e.printStackTrace();

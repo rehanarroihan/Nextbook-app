@@ -5,17 +5,15 @@ package id.sch.smktelkom_mlg.nextbook.Model;
  */
 
 public class Member {
-    String name, pp, email, prov, pps;
+    String name, email, pict;
 
     public Member() {
     }
 
-    public Member(String name, String pp, String email, String prov, String pps) {
+    public Member(String name, String email, String pict) {
         this.name = name;
-        this.pp = pp;
         this.email = email;
-        this.prov = prov;
-        this.pps = pps;
+        this.pict = pict;
     }
 
     public String getName() {
@@ -26,14 +24,6 @@ public class Member {
         this.name = name;
     }
 
-    public String getPp() {
-        return pp;
-    }
-
-    public void setPp(String pp) {
-        this.pp = pp;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -42,19 +32,11 @@ public class Member {
         this.email = email;
     }
 
-    public String getProv() {
-        return prov;
+    public String getPict() {
+        return pict;
     }
 
-    public void setProv(String prov) {
-        this.prov = prov;
-    }
-
-    public String getPps() {
-        return pps;
-    }
-
-    public void setPps(String pps) {
-        this.pps = pps;
+    public void setPict(String pict) {
+        this.pict = pict;
     }
 }

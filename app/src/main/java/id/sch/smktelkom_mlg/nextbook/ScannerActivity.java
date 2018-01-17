@@ -37,6 +37,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         setTitle("Join Class");
+
         etClassCode = findViewById(R.id.editTextClassCode);
         btJoin = findViewById(R.id.buttonJoinClass);
         btJoin.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +69,8 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
     public void handleResult(Result result) {
         etClassCode.setText(result.getText());
         Log.d("Scanner", result.getText());
+        checkCode(result.getText());
+        zXingScannerView.resumeCameraPreview(this);
     }
 
     private void checkCode(String classcode) {

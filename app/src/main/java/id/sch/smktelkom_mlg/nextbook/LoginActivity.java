@@ -234,7 +234,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Prefs.putString("fullname", res.getString("fullname"));
                                     Prefs.putString("email", res.getString("email"));
                                     Prefs.putString("uid", res.getString("uid"));
-
+                                    Prefs.putString("pict", res.getString("pict"));
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                     finish();
                                 } else if (codes == 2) {

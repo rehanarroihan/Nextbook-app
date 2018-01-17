@@ -65,6 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_create_new_folder_black_24dp"
+            android:visibility="gone"
             fab:fab_colorNormal="@color/green"
             fab:fab_label="Create Class"
             fab:fab_size="mini" />

@@ -14,7 +14,6 @@ import java.util.ArrayList;
 
 import id.sch.smktelkom_mlg.nextbook.Model.Member;
 import id.sch.smktelkom_mlg.nextbook.R;
-import id.sch.smktelkom_mlg.nextbook.Util.Config;
 
 /**
  * Created by Rehan on 29/12/2017.
@@ -41,15 +40,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         Member member = memberList.get(position);
         holder.tvName.setText(member.getName());
         holder.tvEmail.setText(member.getEmail());
-        if (!member.getProv().equals("email")) {
-            Glide.with(context)
-                    .load(member.getPps())
-                    .into(holder.ivMember);
-        } else {
-            Glide.with(context)
-                    .load(Config.ImageURL + "2.0/img/user/" + member.getPp())
-                    .into(holder.ivMember);
-        }
+        Glide.with(context).load(member.getPict()).into(holder.ivMember);
     }
 
     @Override

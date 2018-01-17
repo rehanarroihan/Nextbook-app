@@ -41,6 +41,7 @@ import id.sch.smktelkom_mlg.nextbook.Util.Config;
 /**
  * A simple {@link Fragment} subclass.
  */
+
 public class ClassStreamFragment extends Fragment implements PostAdapter.IPostAdapter {
     ArrayList<Post> postList = new ArrayList<>();
     PostAdapter pAdapter;

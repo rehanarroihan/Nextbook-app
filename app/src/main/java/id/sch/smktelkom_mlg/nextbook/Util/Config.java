@@ -10,8 +10,8 @@ import id.sch.smktelkom_mlg.nextbook.NoconActivity;
  */
 
 public class Config {
-    public static String ServerURL = "http://192.168.1.6/nextbook-api/";
-    public static String ImageURL = "http://192.168.1.6/nextbook/assets/";
+    public static String ServerURL = "http://api.nextbook.cf/";
+    public static String ImageURL = "http://app.nextbook.cf/assets/";
 
     public void timeout(Context context) {
         Intent it = new Intent(context.getApplicationContext(), NoconActivity.class);

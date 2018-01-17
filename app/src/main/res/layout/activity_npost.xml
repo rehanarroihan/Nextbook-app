@@ -85,15 +85,15 @@
                     android:src="@drawable/ic_photo_black_24dp"
                     android:tint="#9E9E9E" />
 
-                <ImageButton
-                    android:id="@+id/imageButtonFile"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/imageButtonPict"
-                    android:padding="7dp"
-                    android:src="@drawable/ic_attachment_black_24dp"
-                    android:tint="#9E9E9E" />
+                <!--<ImageButton-->
+                <!--android:id="@+id/imageButtonFile"-->
+                <!--android:layout_width="30dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_toEndOf="@+id/imageButtonPict"-->
+                <!--android:padding="7dp"-->
+                <!--android:src="@drawable/ic_attachment_black_24dp"-->
+                <!--android:tint="#9E9E9E" />-->
 
                 <Button
                     android:id="@+id/buttonPost"

@@ -13,26 +13,16 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.pixplicity.easyprefs.library.Prefs;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import de.hdodenhof.circleimageview.CircleImageView;
 import id.sch.smktelkom_mlg.nextbook.Fragment.ClassFragment;
 import id.sch.smktelkom_mlg.nextbook.Fragment.ProfileFragment;
-import id.sch.smktelkom_mlg.nextbook.Util.AppController;
-import id.sch.smktelkom_mlg.nextbook.Util.Config;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -75,39 +65,8 @@ public class MainActivity extends AppCompatActivity
         tvUsernameDrawer.setText(Prefs.getString("fullname", null));
         tvEmailDrawer = hView.findViewById(R.id.textViewEmailDrawer);
         tvEmailDrawer.setText(Prefs.getString("email", null));
-        final ImageView ivPP = hView.findViewById(R.id.imageViewHehe);
-
-        Log.d("Sector", getClass().getClass().toString());
-        String url = Config.ServerURL + "login/getuserpic?uid=" + Prefs.getString("uid", null);
-        Log.d("Volley", "Sending request to : " + url);
-        StringRequest postRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject res = new JSONObject(response);
-                            Log.d("Volley", "Response : " + response);
-                            String prov = res.getString("prov");
-                            if (prov.equals("email"))
-                                Glide.with(MainActivity.this)
-                                        .load(Config.ImageURL + "2.0/img/user/" + res.getString("pict"))
-                                        .into(ivPP);
-                            else
-                                Glide.with(MainActivity.this)
-                                        .load(res.getString("picts"))
-                                        .into(ivPP);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }
-        );
-        AppController.getInstance().addToRequestQueue(postRequest);
+        CircleImageView ivPP = hView.findViewById(R.id.imageViewHehe);
+        Glide.with(MainActivity.this).load(Prefs.getString("pict", null)).into(ivPP);
     }
 
     @Override
@@ -139,7 +98,7 @@ public class MainActivity extends AppCompatActivity
                 setTitle("Class");
         } else if (id == R.id.nav_profile) {
             fragment = new ProfileFragment();
-            setTitle("Edit Profile");
+            setTitle("Profile");
         } else if (id == R.id.nav_logout) {
             fragment = new ClassFragment();
             navigationView.setCheckedItem(R.id.nav_class);
